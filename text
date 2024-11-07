@@ -1,0 +1,62 @@
+dhruvgarg@Dhruvs-MacBook-Air-2 5thNov % mongosh 
+Current Mongosh Log ID: 6729a1d05d65e3485d42191d
+Connecting to:          mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.3.0
+Using MongoDB:          7.0.14
+Using Mongosh:          2.3.0
+
+test> show dbs
+admin   40.00 KiB
+config  12.00 KiB
+local   40.00 KiB
+test> Use university
+
+test> use university
+switched to db university
+university> db.createCollection("students")
+{ ok: 1 }
+university> db.students.insertOne({"name":"Sam","roll":300})
+{
+  acknowledged: true,
+  insertedId: ObjectId('6729a4315d65e3485d42191e')
+}
+university> db.students.find()
+[
+  { _id: ObjectId('6729a4315d65e3485d42191e'), name: 'Sam', roll: 300 }
+]
+university> db.students.find()
+[
+  { _id: ObjectId('6729a4315d65e3485d42191e'), name: 'Sam', roll: 300 }
+]
+university> db.students.insetMany([{},{},{}])
+TypeError: db.students.insetMany is not a function
+
+university> db.students.find().sort({"name":1})
+[
+  { _id: ObjectId('6729a4315d65e3485d42191e'), name: 'Sam', roll: 300 }
+]
+university> db.students.find().sort({"name":-1})
+[
+  { _id: ObjectId('6729a4315d65e3485d42191e'), name: 'Sam', roll: 300 }
+]
+university> db.students.find({},{"name":true})
+[ { _id: ObjectId('6729a4315d65e3485d42191e'), name: 'Sam' } ]
+university> db.students.updateOne({"roll":300},{$set:{fulltime:true}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+university> db.students.deleteOne({"name":"SAM"})
+{ acknowledged: true, deletedCount: 0 }
+university> db.students.find()
+[
+  {
+    _id: ObjectId('6729a4315d65e3485d42191e'),
+    name: 'Sam',
+    roll: 300,
+    fulltime: true
+  }
+]
+university> 
